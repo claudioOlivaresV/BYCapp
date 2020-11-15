@@ -9,6 +9,8 @@ import { TabsPage } from './tabs.page';
 import { LoginComponent } from '../login/login.component';
 import { MainComponent } from '../main/main.component';
 import { ModalUserComponent } from '../modal-user/modal-user.component';
+import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,7 +18,10 @@ import { ModalUserComponent } from '../modal-user/modal-user.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
+
   ],
   declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent]
 })

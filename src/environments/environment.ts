@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  baseUrl: 'https://us-central1-app-byc.cloudfunctions.net/',
+  production: false,
+  api: {
+    login: 'login-usuarios'
+  }
 };
 
 /*

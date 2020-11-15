@@ -24,3 +24,70 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.bg {
+    background-color:#F7F8FA !important;
+}
+h2, h1, h3,h4, h5, h6 {
+    color: #3E4775 !important;
+}
+p{
+    color: #8B95AE;
+
+}
+body{
+    font-family: Helvetica !important;
+}
+.btn {
+    border-radius: 200px !important;
+
+
+}
+.button{
+    --border-radius: 200px !important;
+
+}
+.primary {
+    --color: white;
+    --background: #7FA4FF;
+    --border-color:  #7FA4FF !important;
+}
+.success{
+    --background: #9968A9 !important;
+    --border-color:  #9968A9!important;
+    
+}
+
+.btn-primary{
+    background-color: #7FA4FF !important;
+    border-color:  #7FA4FF !important;
+    
+}
+.btn-success{
+    background-color: #8B4870 !important;
+    border-color:  #8B4870!important;
+    
+}
+.btn-warning{
+    background-color: #F9F871 !important;
+    border-color:  #F9F871 !important;
+    
+}
+
+.seccion{
+    border-radius: 100px !important;
+}
+.input{
+    background-color: white;
+    color: #8B95AE;
+    border-radius: 100px !important;
+}
+.ion-color-success{
+    --ion-color-base: #7FA4FF !important
+}
+.ion-color-danger{
+    --ion-color-base: #8B4870 !important
+}
+.searchbar-input{
+    -webkit-box-shadow: none !important;
+}

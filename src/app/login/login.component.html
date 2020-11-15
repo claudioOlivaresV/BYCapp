@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true" class="h-100">
+  <form [formGroup]="form">
+    <div class="  bg fill">
+      <div class="pt-4 text-center">
+        <h3 class="font-weight-bold">BIENVENIDO</h3>
+        <p>Para ingresar digite su número telefónico</p>
+      </div>
+
+      <div class="row my-4 d-flex d-flex justify-content-center">
+        <div class="col-9">
+          <ion-item class="input">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-input
+              type="tel"
+              placeholder="Enter Input"
+              formControlName="phone"
+            ></ion-input>
+          </ion-item>
+
+          <div *ngIf="!form.controls.phone.valid && form.controls.phone.dirty">
+           <p class="text-center text-danger "> Por favor un número telefónico válido.</p>
+          </div>
+        </div>
+        <div class="col-9 mt-4 text-center">
+          <ion-button class="button primary"  [disabled]="form.invalid || status.loading"
+          (click)="login(form.value)">
+          <ion-spinner name="lines" *ngIf="status.loading"></ion-spinner>
+           <span *ngIf="!status.loading">Ingresar</span> 
+          </ion-button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <img src="../../assets/undraw_Mobile_app_p3ts.svg" class="w-75" alt="" />
+      </div>
+    </div>
+  </form>
+</ion-content>

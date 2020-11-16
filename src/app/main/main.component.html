@@ -3,7 +3,7 @@
 
   <ion-buttons slot="primary">
     <ion-buttons slot="start"  (click)="logout()">
-      <ion-menu-button auto-hide="false"></ion-menu-button>
+      <ion-icon name="power-outline"></ion-icon>
     </ion-buttons>
     <ion-button  (click)="goToAdmin()">
       <ion-icon slot="icon-only" ios="settings-outline" md="settings-outline" class="text-muted"></ion-icon>
@@ -17,7 +17,7 @@
   <ng-container *ngIf="status.loading">
     <div class="d-flex justify-content-center align-items-center fill bg">
       <div class="text-center">
-        <h3>Cargando...</h3>
+        <h3 class="text-muted">Cargando...</h3>
         <ion-spinner color="primary"></ion-spinner>
       </div>
         
@@ -26,9 +26,7 @@
 
   </ng-container>
   <ng-container *ngIf="!status.loading">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+   
 
     <div class="h-100  bg">
       <ion-card>
@@ -43,7 +41,7 @@
             <ng-container *ngFor="let item of access.accesos.data; let i = index;">
               <div class="col-12 mt-2 ">
                 
-    
+                  
                   <ion-button class="button primary w-100" (click)="open3()"> {{item.nombre}}</ion-button>
              
                 <!-- <button type="button " class="w-100 btn btn btn-success px-3" ></button> -->

@@ -39,12 +39,13 @@ export class LoginComponent implements OnInit {
       console.log('Your age is', val);
     });
   }
+
   login(value) {
     const hash = Math.floor(Math.random() * (100000 + 1));
     console.log(value);
     const user = {
-      telefono: value.phone,
-      hash
+      telefono: '931994635',
+      hash : '1234'
     };
     this.status.data = false;
     this.status.loading = true;

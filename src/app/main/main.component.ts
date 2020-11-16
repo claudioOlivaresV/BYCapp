@@ -19,7 +19,6 @@ export class MainComponent implements OnInit {
   constructor(private router: Router, private storage: Storage, public toastController: ToastController) { }
 
   ngOnInit() {
-    
     this.status.loading = true;
     this.storage.get('isLoggedin').then((val) => {
       console.log('Your age is', val);
@@ -45,7 +44,11 @@ export class MainComponent implements OnInit {
     this.openError();
   }
   open3(){
-    this.openOk();
+    this.status.loading = true;
+    setTimeout(() => {
+      this.openOk();
+      this.status.loading = false;
+    }, 3000);
   }
   doRefresh(event) {
     console.log('Begin async operation');

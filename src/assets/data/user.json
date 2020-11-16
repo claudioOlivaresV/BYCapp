@@ -2,16 +2,22 @@
     {
         "id": "1",
         "numero": "123456789",
-        "estado" : 1
+        "estado" : 1,
+        "direccion" : "Calle",
+        "numeroCasa": "123"
     },
     {
         "id": "2",
         "numero": "993789622",
-        "estado" : 1
+        "estado" : 1,
+        "direccion" : "Calle",
+        "numeroCasa": "123"
     },
     {
         "id": "3",
         "numero": "822446354",
-        "estado" : 0
+        "estado" : 0,
+        "direccion" : "Calle",
+        "numeroCasa": "123"
     }
 ]

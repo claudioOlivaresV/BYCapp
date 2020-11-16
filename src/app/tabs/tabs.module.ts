@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicesService } from '../services/services.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     HttpClientModule,
 
   ],
-  declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent, SpinnerComponent],
+  declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent, SpinnerComponent, ModalUserEditComponent],
   providers: [ServicesService],
 })
 export class TabsPageModule {}

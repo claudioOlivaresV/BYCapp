@@ -10,7 +10,7 @@
     </ion-buttons>
     <ion-title  class="text-muted">Usuarios</ion-title>
   </ion-toolbar>
-  <ion-toolbar class="px-3">
+  <ion-toolbar class="px-3" *ngIf="!status.loading && status.data">
     
     <ion-input (keyup)="filterByCell(myModel)" placeholder="Buscar" type="text" [(ngModel)]="myModel"  class="text-muted"><ion-icon name="search-outline"></ion-icon></ion-input>
   </ion-toolbar>
@@ -23,11 +23,11 @@
         <ion-item>
           <ion-label>
             <h2  class="text-muted"><ion-icon name="call-outline"></ion-icon> {{item.numero}}</h2>
-            <ion-note slot="start" class="textSucces" color="success">Activo</ion-note>
+            <ion-note slot="start" class="textSucces" color="success"><ion-icon name="location-outline"></ion-icon> {{item.direccion}} {{item.numeroCasa}}</ion-note>
       
           </ion-label>
           <!-- <ion-icon slot="end" name="create-outline" ></ion-icon> -->
-          <ion-icon name="ellipsis-horizontal-outline" (click)="presentActionSheet()"></ion-icon>
+          <ion-icon name="ellipsis-horizontal-outline" (click)="presentActionSheet(item)"></ion-icon>
           <!-- <ion-icon name="options-outline" ></ion-icon> -->
       
         </ion-item>
@@ -40,8 +40,19 @@
   <ng-container *ngIf="status.loading">
     <div class="d-flex justify-content-center align-items-center  mt-5">
       <div class="text-center">
-        <h3>Cargando...</h3>
+        <h3 class="text-muted">Cargando...</h3>
         <ion-spinner color="primary"></ion-spinner>
+      </div>
+        
+    
+    </div>
+
+  </ng-container>
+  <ng-container *ngIf="status.error">
+    <div class="d-flex justify-content-center align-items-center  mt-5">
+      <div class="text-center">
+        <h3 class="text-muted">Error</h3>
+        <ion-button class="button primary w-100" (click)="tryAgain()"> Volver a intentar</ion-button>
       </div>
         
     

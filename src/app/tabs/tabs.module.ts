@@ -11,6 +11,8 @@ import { MainComponent } from '../main/main.component';
 import { ModalUserComponent } from '../modal-user/modal-user.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { ServicesService } from '../services/services.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
 
   ],
-  declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent]
+  declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent, SpinnerComponent],
+  providers: [ServicesService],
 })
 export class TabsPageModule {}

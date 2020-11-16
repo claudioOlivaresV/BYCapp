@@ -1,4 +1,8 @@
-.fill { 
-   
-    height: 100vh;
-}
+:host {
+    .item-interactive.ion-invalid{
+     --highlight-background: #9968A9 !important;
+   }
+   .item-interactive.ion-valid{
+     --highlight-background: none !important;
+   }
+ }

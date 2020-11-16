@@ -49,7 +49,7 @@ body{
 }
 .primary {
     --color: white;
-    --background: #7FA4FF;
+    --background: #7FA4FF !important;
     --border-color:  #7FA4FF !important;
 }
 .success{
@@ -64,9 +64,16 @@ body{
     
 }
 .btn-success{
-    background-color: #8B4870 !important;
-    border-color:  #8B4870!important;
+    background-color: #9968A9 !important;
+    border-color:  #9968A9!important;
     
+}
+.text-danger{
+    color: #9968A9 !important;
+}
+.item-highlight{
+    background: #9968A9 !important;
+    --background: #9968A9 !important;
 }
 .btn-warning{
     background-color: #F9F871 !important;
@@ -90,4 +97,8 @@ body{
 }
 .searchbar-input{
     -webkit-box-shadow: none !important;
+}
+.fill { 
+   
+    height: 100vh;
 }

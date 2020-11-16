@@ -10,13 +10,28 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  status = {
+    loading: true,
+  };
+
+  access: any;
 
   constructor(private router: Router, private storage: Storage, public toastController: ToastController) { }
 
   ngOnInit() {
+    
+    this.status.loading = true;
     this.storage.get('isLoggedin').then((val) => {
       console.log('Your age is', val);
     });
+    this.storage.get('data').then((val) => {
+      console.log('Your age is', val);
+      this.access = val;
+    });
+    setTimeout(() => {
+      this.status.loading = false;
+    }, 500);
+
   }
   goToAdmin(){
     console.log('click');
@@ -31,6 +46,14 @@ export class MainComponent implements OnInit {
   }
   open3(){
     this.openOk();
+  }
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
   async openError() {
     const toast = await this.toastController.create({

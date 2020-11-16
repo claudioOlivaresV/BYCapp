@@ -40,31 +40,28 @@ export class LoginComponent implements OnInit {
     });
   }
   login(value) {
+    const hash = Math.floor(Math.random() * (100000 + 1));
     console.log(value);
     const user = {
       telefono: value.phone,
-      hash: '123433'
+      hash
     };
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-    this.service.login(user).subscribe(data => {
-      console.log(data);
-      
-    }, error => {
-      console.log(error);
+    this.service.login(user).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.status.data = true;
+      this.status.loading = false;
+      this.storage.set('isLoggedin', true);
+      this.storage.set('data', rsp);
+      this.router.navigate(['/main']);
+    }, err => {
+      console.log(err);
+      this.form.reset();
+      this.status.error = true;
+      this.status.loading = false;
     });
-    // this.service.login(user).toPromise().then((rsp: any) => {
-
-    //   this.status.data = true;
-    //   this.status.loading = false;
-    //   this.storage.set('isLoggedin', true);
-    //   this.router.navigate(['/main']);
-    // }, err => {
-    //   this.form.reset();
-    //   this.status.error = true;
-    //   this.status.loading = false;
-    // });
   }
 
 }

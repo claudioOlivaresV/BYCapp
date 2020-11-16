@@ -39,6 +39,17 @@ export class LoginComponent implements OnInit {
       console.log('Your age is', val);
     });
   }
+  ionViewWillEnter(){
+    console.log('modantado');
+    this.storage.get('isLoggedin').then((val) => {
+      if (val) {
+        this.isLoggin = val;
+        this.router.navigate(['/main']);
+      }
+      console.log('Your age is', val);
+    });
+    
+  }
 
   login(value) {
     const hash = Math.floor(Math.random() * (100000 + 1));

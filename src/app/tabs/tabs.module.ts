@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServicesService } from '../services/services.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.compo
     TabsPageRoutingModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,
+    NgxSkeletonLoaderModule
 
   ],
   declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent, SpinnerComponent, ModalUserEditComponent],

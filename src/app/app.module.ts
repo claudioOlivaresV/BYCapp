@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicesService } from './services/services.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { ServicesService } from './services/services.service';
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(),
     AppRoutingModule,   FormsModule,
     ReactiveFormsModule,  HttpClientModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [
     StatusBar,

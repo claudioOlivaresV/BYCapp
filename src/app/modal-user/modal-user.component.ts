@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { ServicesService } from '../services/services.service';
 
 @Component({
   selector: 'app-modal-user',
@@ -14,18 +16,25 @@ export class ModalUserComponent implements OnInit {
     loading: null,
     error: null
   };
+  idCondominio: number;
 
-  constructor(private modalCtrl: ModalController, public toastController: ToastController) {
+  constructor(private modalCtrl: ModalController, public toastController: ToastController, private storage: Storage, 
+              private service: ServicesService) {
     this.form = new FormGroup({
       phone: new FormControl('', [Validators.required, Validators.minLength(9),
-        Validators.maxLength(9), Validators.pattern(/^([0-9])*$/)]),
+      Validators.maxLength(9), Validators.pattern(/^([0-9])*$/)]),
       address: new FormControl('', Validators.required),
       number: new FormControl('', Validators.required),
 
     });
-   }
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.storage.get('data').then((val) => {
+      this.idCondominio = val.user.data[0].id_condominio;
+    });
+
+   }
   dismiss(status) {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
@@ -33,15 +42,33 @@ export class ModalUserComponent implements OnInit {
       refresh: status
     });
   }
-  add(value){
+  add(value) {
     console.log(value);
     this.status.loading = true;
-    setTimeout(() => {
+    const user = {
+      telefono: value.phone,
+      direccion: value.address,
+      numero: value.number,
+      condominio: this.idCondominio
+    };
+    console.log(user);
+    this.status.data = false;
+    this.status.loading = true;
+    this.status.error = false;
+    this.service.addUsers(user).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.status.data = true;
       this.status.loading = false;
       this.openOk();
       this.dismiss(true);
 
-    }, 3000);
+    }, err => {
+      console.log(err);
+      this.status.error = true;
+      this.status.loading = false;
+      this.openError();
+      this.form.reset();
+    });
   }
   async openError() {
     const toast = await this.toastController.create({
@@ -50,7 +77,7 @@ export class ModalUserComponent implements OnInit {
       duration: 10000,
       color: 'danger',
       buttons: [
-       {
+        {
           role: 'cancel',
           icon: 'close-outline',
           handler: () => {
@@ -69,7 +96,7 @@ export class ModalUserComponent implements OnInit {
       duration: 10000,
       color: 'success',
       buttons: [
-       {
+        {
           role: 'cancel',
           icon: 'close-outline',
           handler: () => {

@@ -48,8 +48,8 @@ export class Tab1Page implements OnInit {
     this.usersFilter = this.users;
     this.usersFilter = this.usersFilter.filter((item) => {
       console.log(item);
-      console.log(item.numero.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim()));
-      return item.numero.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+      console.log(item.telefono.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim()));
+      return item.telefono.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
     });
   }
   getData() {
@@ -57,9 +57,9 @@ export class Tab1Page implements OnInit {
     this.status.loading = true;
     this.status.error = false;
     setTimeout(() => {
-      this.service.getUsers().toPromise().then((rsp: any) => {
-        this.users = rsp;
-        this.usersFilter = rsp;
+      this.service.getUsers('123').toPromise().then((rsp: any) => {
+        this.users = rsp.data;
+        this.usersFilter = rsp.data;
         console.log(rsp);
         this.status.data = true;
         this.status.loading = false;
@@ -178,24 +178,80 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
   resetHash(data) {
-    console.log(data);
+    const user = {
+      id: data.id,
+      telefono: data.telefono,
+      direccion: data.calle,
+      numero: data.num_casa,
+      condominio: data.id_condominio,
+      hash: ''
+    };
+    console.log(user);
+    this.status.data = false;
     this.status.loading = true;
-    setTimeout(() => {
+    this.status.error = false;
+    this.service.editUser(user).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.status.data = true;
+      this.status.loading = false;
       this.openOk(false);
       this.tryAgain();
 
-    }, 2000);
+    }, err => {
+      this.openError();
+      console.log(err);
+      this.status.error = true;
+      this.status.loading = false;
+    });
 
   }
   remove(data) {
-    console.log(data);
+    const id = {
+      id: data.id
+    };
+    console.log(id);
+    this.status.data = false;
     this.status.loading = true;
-    setTimeout(() => {
-      this.tryAgain();
+    this.status.error = false;
+    this.service.removeUsers(id).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.status.data = true;
+      this.status.loading = false;
       this.openOk(true);
+      this.tryAgain();
 
-    }, 2000);
+    }, err => {
+      this.openError();
+      console.log(err);
+      this.status.error = true;
+      this.status.loading = false;
+    });
+    // console.log(data);
+    // this.status.loading = true;
+    // setTimeout(() => {
+    //   this.tryAgain();
+    //   this.openOk(true);
 
+    // }, 2000);
+
+  }
+  async openError() {
+    const toast = await this.toastController.create({
+      message: '<ion-icon name="alert-circle-outline"></ion-icon> Error, vuelva a intentarlo',
+      // position: 'top',
+      duration: 10000,
+      color: 'danger',
+      buttons: [
+       {
+          role: 'cancel',
+          icon: 'close-outline',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
   }
   async openOk(isDelete) {
     const toast = await this.toastController.create({

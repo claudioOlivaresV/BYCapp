@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
+import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
+import { ServicesService } from '../services/services.service';
 
 @Component({
   selector: 'app-modal-user-edit',
@@ -17,17 +19,17 @@ export class ModalUserEditComponent implements OnInit {
   @Input() data: any;
 
 
-  constructor(private modalCtrl: ModalController, public toastController: ToastController) {
+  constructor(private modalCtrl: ModalController, public toastController: ToastController, private service: ServicesService) {
 
   }
 
   ngOnInit() {
     console.log(this.data);
     this.form = new FormGroup({
-      phone: new FormControl(this.data.numero, [Validators.required, Validators.minLength(9),
+      phone: new FormControl({value: this.data.telefono, disabled: true}, [Validators.required, Validators.minLength(9),
         Validators.maxLength(9), Validators.pattern(/^([0-9])*$/)]),
-      address: new FormControl(this.data.direccion, Validators.required),
-      number: new FormControl(this.data.numeroCasa, Validators.required),
+      address: new FormControl(this.data.calle, Validators.required),
+      number: new FormControl(this.data.num_casa, Validators.required),
 
     });
   }
@@ -39,14 +41,32 @@ export class ModalUserEditComponent implements OnInit {
     });
   }
   add(value){
-    console.log(value);
+    const user = {
+      id: this.data.id,
+      telefono: value.phone,
+      direccion: value.address,
+      numero: value.number,
+      condominio: this.data.id_condominio,
+      hash: this.data.hash
+    };
+    console.log(user);
+    this.status.data = false;
     this.status.loading = true;
-    setTimeout(() => {
+    this.status.error = false;
+    this.service.editUser(user).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.status.data = true;
       this.status.loading = false;
       this.openOk();
       this.dismiss(true);
 
-    }, 3000);
+    }, err => {
+      console.log(err);
+      this.status.error = true;
+      this.status.loading = false;
+      this.openError();
+      this.form.reset();
+    });
   }
   async openError() {
     const toast = await this.toastController.create({

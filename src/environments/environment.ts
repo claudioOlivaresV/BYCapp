@@ -6,7 +6,8 @@ export const environment = {
   baseUrl: 'https://us-central1-app-byc.cloudfunctions.net/',
   production: false,
   api: {
-    login: 'login-usuarios'
+    login: 'login-usuarios',
+    users: 'admin-usuarios'
   }
 };
 

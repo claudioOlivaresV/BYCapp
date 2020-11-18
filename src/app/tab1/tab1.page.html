@@ -18,12 +18,12 @@
 
 <ion-content fullscreen>
   <ng-container *ngIf="!status.loading && status.data">
-    <ion-list>
+    <ion-list class="mb-5">
       <ng-container *ngFor="let item of usersFilter; let i = index;">
         <ion-item>
           <ion-label>
-            <h2  class="text-muted"><ion-icon name="call-outline"></ion-icon> {{item.numero}}</h2>
-            <ion-note slot="start" class="textSucces" color="success"><ion-icon name="location-outline"></ion-icon> {{item.direccion}} {{item.numeroCasa}}</ion-note>
+            <h2  class="text-muted"><ion-icon name="call-outline"></ion-icon> {{item.telefono}}</h2>
+            <ion-note slot="start" class="textSucces" color="success"><ion-icon name="location-outline"></ion-icon> {{item.calle}} {{item.num_casa}}</ion-note>
       
           </ion-label>
           <!-- <ion-icon slot="end" name="create-outline" ></ion-icon> -->

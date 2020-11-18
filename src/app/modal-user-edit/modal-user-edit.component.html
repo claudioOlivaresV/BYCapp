@@ -25,6 +25,7 @@
                 placeholder="932948955"
                 type="phone"
                 class="ml-2"
+                readonly
                 formControlName="phone"
               ></ion-input>
             </ion-item>
@@ -65,7 +66,7 @@
           <div class="col-9 mt-4">
             <ion-button class="button primary w-100" (click)="add(form.value)" [disabled]="form.invalid || status.loading" >
             <ion-spinner name="lines" *ngIf="status.loading"></ion-spinner>
-             <span *ngIf="!status.loading">Agregar</span> 
+             <span *ngIf="!status.loading">Editar</span> 
              
             </ion-button>
           </div>

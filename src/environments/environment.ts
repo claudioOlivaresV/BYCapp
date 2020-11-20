@@ -7,7 +7,8 @@ export const environment = {
   production: false,
   api: {
     login: 'login-usuarios',
-    users: 'admin-usuarios'
+    users: 'admin-usuarios',
+    access: 'historial-accesos'
   }
 };
 

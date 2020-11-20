@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 
@@ -20,7 +20,7 @@ export class ServicesService {
   public getUsers(id) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    return this.http.get(environment.baseUrl + environment.api.users + '?id_condominio=1', { headers });
+    return this.http.get(environment.baseUrl + environment.api.users + '?id_condominio=' + id, { headers });
     // return this.http.get('../../assets/data/user.json');
 
   }
@@ -33,17 +33,25 @@ export class ServicesService {
   public removeUsers(id) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    const options = {
-      headers,
-      body: id
-    };
-    return this.http.delete(environment.baseUrl + environment.api.users, options);
+    const params = new HttpParams().append('id', id);
+    return this.http.delete(environment.baseUrl + environment.api.users , { headers, params });
 
   }
   public editUser(user) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.put(environment.baseUrl + environment.api.users, user, { headers });
+
+  }
+  public getAcces(id, page) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    let  params = new HttpParams();
+    params = params.append('condominio', id);
+    params = params.append('npp', '10');
+    params = params.append('page', page);
+    return this.http.get(environment.baseUrl + environment.api.access, { headers, params});
+    // return this.http.get('../../assets/data/user.json');
 
   }
 }

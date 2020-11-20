@@ -5,6 +5,8 @@ import { ActionSheetController, AlertController, ModalController, ToastControlle
 import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
 import { ModalUserComponent } from '../modal-user/modal-user.component';
 import { ServicesService } from '../services/services.service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-tab1',
@@ -21,20 +23,28 @@ export class Tab1Page implements OnInit {
   users: any;
   usersFilter: any;
   myModel: string;
+  access: any;
 
 
-  constructor(private router: Router, public modalController: ModalController,
-    private service: ServicesService, public actionSheetController: ActionSheetController,
-    public alertController: AlertController,
-    public toastController: ToastController) {
+  constructor(private router: Router,
+              public modalController: ModalController,
+              private service: ServicesService,
+              public actionSheetController: ActionSheetController,
+              public alertController: AlertController,
+              public toastController: ToastController,
+              private storage: Storage) {
     this.form = new FormGroup({
       phone: new FormControl('')
     });
 
   }
   ngOnInit() {
-
-    this.getData();
+    this.storage.get('data').then((val) => {
+      console.log('Your age is', val);
+      this.access = val;
+      console.log(val.user.data[0].id_condominio);
+      this.getData(val.user.data[0].id_condominio);
+    });
   }
   login(value) {
     console.log(value);
@@ -52,12 +62,12 @@ export class Tab1Page implements OnInit {
       return item.telefono.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
     });
   }
-  getData() {
+  getData(id) {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
     setTimeout(() => {
-      this.service.getUsers('123').toPromise().then((rsp: any) => {
+      this.service.getUsers(id).toPromise().then((rsp: any) => {
         this.users = rsp.data;
         this.usersFilter = rsp.data;
         console.log(rsp);
@@ -75,7 +85,7 @@ export class Tab1Page implements OnInit {
     this.status.data = false;
     this.status.loading = false;
     this.status.error = false;
-    this.getData();
+    this.getData(this.access.user.data[0].id_condominio);
 
   }
   async presentModal() {
@@ -213,7 +223,7 @@ export class Tab1Page implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-    this.service.removeUsers(id).toPromise().then((rsp: any) => {
+    this.service.removeUsers(data.id).toPromise().then((rsp: any) => {
       console.log(rsp);
       this.status.data = true;
       this.status.loading = false;

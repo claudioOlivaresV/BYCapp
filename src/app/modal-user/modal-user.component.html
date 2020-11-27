@@ -13,6 +13,9 @@
   </ion-buttons>
 </ion-toolbar>
 <ion-content [fullscreen]="true" class="vh-100 ">
+
+
+
   <form [formGroup]="form">
     <div class=" bg">
       <div class="pt-4">
@@ -42,6 +45,7 @@
                 class="ml-2"
                 formControlName="address"
               ></ion-input>
+
             </ion-item>
             <div *ngIf="!form.controls.address.valid && form.controls.address.dirty">
               <p class="text-center text-danger mb-0 "> Por favor ingrese una dirección.</p>

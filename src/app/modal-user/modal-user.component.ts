@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -9,14 +9,36 @@ import { ServicesService } from '../services/services.service';
   templateUrl: './modal-user.component.html',
   styleUrls: ['./modal-user.component.scss'],
 })
+
 export class ModalUserComponent implements OnInit {
+  users: any[] = [
+    {
+      id: 1,
+      first: 'Alice',
+      last: 'Smith',
+    },
+    {
+      id: 2,
+      first: 'Bob',
+      last: 'Davis',
+    },
+    {
+      id: 3,
+      first: 'Charlie',
+      last: 'Rosenburg',
+    }
+  ];
   form: FormGroup;
   status = {
     data: null,
     loading: null,
     error: null
   };
+  compareWith;
   idCondominio: number;
+  access: any = [];
+  @Input() data: any;
+
 
   constructor(private modalCtrl: ModalController, public toastController: ToastController, private storage: Storage, 
               private service: ServicesService) {
@@ -30,6 +52,16 @@ export class ModalUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.data);
+    this.data.forEach(element => {
+      const existe = this.access.includes(element.calle);
+      console.log(existe);
+      console.log(element.calle);
+      if (!existe) {
+        this.access.push(element.calle);
+
+      }
+    });
     this.storage.get('data').then((val) => {
       this.idCondominio = val.user.data[0].id_condominio;
     });
@@ -107,5 +139,11 @@ export class ModalUserComponent implements OnInit {
     });
     toast.present();
   }
+  compareWithFn = (o1, o2) => {
+    const list =  o1 && o2 ? o1.id === o2.id : o1 === o2;
+    this.compareWith = list;
+  }
+
+
 
 }

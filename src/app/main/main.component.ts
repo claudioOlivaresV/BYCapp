@@ -13,6 +13,10 @@ export class MainComponent implements OnInit {
   status = {
     loading: true,
   };
+  statusButtons = {
+    loading: false,
+    error: false
+  };
 
   access: any;
 
@@ -44,10 +48,10 @@ export class MainComponent implements OnInit {
     this.openError();
   }
   open3(){
-    this.status.loading = true;
+    this.statusButtons.loading = true;
     setTimeout(() => {
       this.openOk();
-      this.status.loading = false;
+      this.statusButtons.loading = false;
     }, 3000);
   }
   doRefresh(event) {

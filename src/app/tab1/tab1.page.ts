@@ -91,7 +91,10 @@ export class Tab1Page implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalUserComponent,
-      cssClass: 'my-custom-class'
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'data': this.users
+      }
     });
     modal.onDidDismiss()
       .then((data: any) => {

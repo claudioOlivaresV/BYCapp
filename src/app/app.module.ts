@@ -13,6 +13,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ServicesService } from './services/services.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(),
     AppRoutingModule,   FormsModule,
     ReactiveFormsModule,  HttpClientModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

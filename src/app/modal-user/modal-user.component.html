@@ -1,76 +1,69 @@
-
 <ion-toolbar class="shadow-sm">
   <ion-title class="text-muted">Nuevo Usuario</ion-title>
   <ion-buttons slot="primary">
     <ion-button (click)="dismiss(false)">
-      <ion-icon
-        slot="icon-only"
-        ios="close-outline"
-        md="close-outline"
-        class="text-muted"
-      ></ion-icon>
+      <ion-icon slot="icon-only" ios="close-outline" md="close-outline" class="text-muted"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-toolbar>
 <ion-content [fullscreen]="true" class="vh-100 ">
 
 
-
   <form [formGroup]="form">
     <div class=" bg">
+
+
       <div class="pt-4">
         <div class="row my-4 d-flex d-flex justify-content-center">
           <div class="col-9">
             <ion-label position="stacked text-muted">Número telefónico</ion-label>
             <ion-item class="seccion shadow-sm mt-1">
               <ion-icon name="call-outline"></ion-icon>
-              <ion-input
-                placeholder="932948955"
-                type="phone"
-                class="ml-2"
-                formControlName="phone"
-              ></ion-input>
+              <ion-input placeholder="932948955" type="phone" class="ml-2" formControlName="phone"></ion-input>
             </ion-item>
             <div *ngIf="!form.controls.phone.valid && form.controls.phone.dirty">
               <p class="text-center text-danger mb-0 "> Por favor un número telefónico válido.</p>
-             </div>
+            </div>
           </div>
           <div class="col-9 mt-3">
             <ion-label position="stacked text-muted">Dirección</ion-label>
             <ion-item class="seccion shadow-sm mt-1">
               <ion-icon name="location-outline"></ion-icon>
-              <ion-input
+              <!-- <ion-input
                 placeholder="Pasaje interior"
                 type="text"
                 class="ml-2"
                 formControlName="address"
-              ></ion-input>
+              ></ion-input> -->
+              <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="address"
+                [matAutocomplete]="auto" >
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
 
             </ion-item>
             <div *ngIf="!form.controls.address.valid && form.controls.address.dirty">
               <p class="text-center text-danger mb-0 "> Por favor ingrese una dirección.</p>
-             </div>
+            </div>
           </div>
           <div class="col-9 mt-3">
             <ion-label position="stacked text-muted">Número de dirrección</ion-label>
             <ion-item class="seccion shadow-sm mt-1">
               <ion-icon name="pin-outline"></ion-icon>
-              <ion-input
-                placeholder="1082"
-                type="text"
-                class="ml-2"
-                formControlName="number"
-              ></ion-input>
+              <ion-input placeholder="1082" type="text" class="ml-2" formControlName="number"></ion-input>
             </ion-item>
             <div *ngIf="!form.controls.number.valid && form.controls.number.dirty">
               <p class="text-center text-danger mb-0 "> Por favor ingrese un número de dirección.</p>
-             </div>
+            </div>
           </div>
           <div class="col-9 mt-4">
-            <ion-button class="button primary w-100" (click)="add(form.value)" [disabled]="form.invalid || status.loading" >
-            <ion-spinner name="lines" *ngIf="status.loading"></ion-spinner>
-             <span *ngIf="!status.loading">Agregar</span> 
-             
+            <ion-button class="button primary w-100" (click)="add(form.value)"
+              [disabled]="form.invalid || status.loading">
+              <ion-spinner name="lines" *ngIf="status.loading"></ion-spinner>
+              <span *ngIf="!status.loading">Agregar</span>
+
             </ion-button>
           </div>
         </div>

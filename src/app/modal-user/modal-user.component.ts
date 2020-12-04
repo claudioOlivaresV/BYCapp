@@ -2,7 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
 import { ServicesService } from '../services/services.service';
+import {map, startWith} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-modal-user',
@@ -11,6 +14,10 @@ import { ServicesService } from '../services/services.service';
 })
 
 export class ModalUserComponent implements OnInit {
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+  
   users: any[] = [
     {
       id: 1,
@@ -65,8 +72,19 @@ export class ModalUserComponent implements OnInit {
     this.storage.get('data').then((val) => {
       this.idCondominio = val.user.data[0].id_condominio;
     });
+    this.filteredOptions = this.form.controls.address.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
 
    }
+  private _filter(value: string): string[] {
+    console.log(this.access);
+    
+    const filterValue = value.toLowerCase();
+
+    return this.access.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
   dismiss(status) {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data

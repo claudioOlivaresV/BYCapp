@@ -15,6 +15,13 @@ import { ServicesService } from '../services/services.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
+
+
 
 @NgModule({
   imports: [
@@ -25,7 +32,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     TabsPageRoutingModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule 
 
   ],
   declarations: [TabsPage, LoginComponent, MainComponent, ModalUserComponent, SpinnerComponent, ModalUserEditComponent],
